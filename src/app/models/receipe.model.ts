@@ -1,4 +1,4 @@
-interface RecipeModel {
+export interface RecipeModel {
   title: string;
   href: string;
   ingredients: string[];

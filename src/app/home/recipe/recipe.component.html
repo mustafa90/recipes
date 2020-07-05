@@ -1,0 +1,26 @@
+<article class="media">
+  <figure class="media-left">
+    <p class="image is-64x64 set-bigger" (click)="openPage(recipe.href)">
+      <img [src]="recipe.thumbnail ? recipe.thumbnail : '../../../assets/placeholder.png'">
+    </p>
+  </figure>
+  <div class="media-content">
+    <div class="content">
+      <p class="underline" (click)="openPage(recipe.href)">
+        <strong>{{ recipe.title }}</strong>
+        <span class="icon has-text-link">
+                            <i class="fas fa-link "></i>
+                        </span>
+      </p>
+      <p class="tags ">
+        <span [ngClass]="getIngredientClass(ingredient) " *ngFor="let ingredient of recipe.ingredients " (click)="updateIngredient(ingredient) ">{{ ingredient }}</span>
+      </p>
+    </div>
+
+  </div>
+  <div class="media-right ">
+                <span class="icon has-text-danger set-bigger" (click)="updateFavorite(recipe) ">
+                    <i [ngClass]=" recipe.favorite ? 'fas fa-heart' : 'far fa-heart' "></i>
+                  </span>
+  </div>
+</article>

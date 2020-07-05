@@ -1,1 +1,59 @@
-<p>home works!</p>
+<nav class="navbar is-link is-spaced" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <h3 class="title is-2 has-text-white">RecipePuppy</h3>
+  </div>
+  <div class="navbar-menu is-active">
+    <div class="navbar-end">
+      <div class="navbar-item is-expanded">
+        <div [ngClass]="isLoading ? 'control is-loading' : 'control'">
+          <input class="input" type="text" (keyup)="updateForm()" [(ngModel)]="searchField" name="searchField" placeholder="Search...">
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<section class="section has-background-white-ter" *ngIf="ingredients.length > 0">
+  <div class="level">
+    <div class="tags">
+            <span *ngFor="let ingredient of ingredients" class="tag is-darker is-link">{{ ingredient }}
+              <button class="delete is-small" (click)="removeIngredient(ingredient)"></button>
+                </span>
+    </div>
+  </div>
+</section>
+<section class="section" *ngIf="recipes.length === 0">
+  <article class="message is-info">
+    <div class="message-body">
+      There are no results for the asked search. Please, type in the <strong>searchbox</strong> on the header the keyword of the recipe you want to search. You can also press on the <strong>ingredients</strong> to filter recipes with the required
+      keyword and ingredients. At the bottom of the page there are two buttons to navigate between results.
+    </div>
+  </article>
+</section>
+<section class="section" *ngIf="recipes.length > 0" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+  <div class="level">
+    <div class="level-left">
+      <div class=level-item>
+        <div class="container">
+          <h3 class="title is-spaced">Search results</h3>
+          <h5 class="subtitle">Showing page <strong>{{ pageIndex }}</strong> of <strong>{{ searchField }}</strong> search</h5>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div *ngFor="let recipe of recipes">
+<app-recipe [recipe]="recipe" [ingredients]="this.ingredients" (getRecipes)="this.getRecipes(false)" (removeIngredient)="this.removeIngredient($event)"></app-recipe>
+    <hr>
+  </div>
+</section>
+<hr>
+<section class="section">
+  <div class="level">
+    <div class="level-left">
+      <div class="level-item">
+        <h5 class="subtitle is-6">Developed by <strong>Mustafa Duranovic</strong></h5>
+      </div>
+    </div>
+  </div>
+</section>
